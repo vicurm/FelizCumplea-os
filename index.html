@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorpresa de Amor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Página inicial */
+        .initial-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e7f0 100%);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .initial-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .click-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .click-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Página principal */
+        .main-page {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Lluvia de corazones mejorada */
+        .heart-rain {
+            position: fixed;
+            top: -50px;
+            width: 100px;
+            height: calc(100vh + 50px);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .heart-rain.left {
+            left: 20px;
+        }
+
+        .heart-rain.right {
+            right: 20px;
+        }
+
+        .heart {
+            position: absolute;
+            color: #e74c3c;
+            font-size: 18px;
+            animation: fall linear forwards;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.5));
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(calc(var(--random-x) * 50px)) rotate(calc(var(--random-rotate) * 360deg));
+                opacity: 0;
+            }
+        }
+
+        /* Sección de música */
+        .music-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid #eaeaea;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 15px 5px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .music-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .music-carousel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .music-carousel::-webkit-scrollbar-thumb {
+            background: #bdc3c7;
+            border-radius: 10px;
+        }
+
+        .music-item {
+            min-width: 200px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+
+        .music-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .music-item:hover .album-cover img {
+            transform: scale(1.03);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 152, 219, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .music-item:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .song-info {
+            text-align: center;
+        }
+
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .song-artist {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .song-duration {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            margin-top: 5px;
+        }
+
+        /* Sección de fotos - Carrusel mejorado */
+        .photo-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eaeaea;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .photo-carousel {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            cursor: grab;
+            user-select: none;
+            padding: 15px 0;
+            will-change: transform;
+        }
+
+        .photo-carousel.grabbing {
+            cursor: grabbing;
+            transition: none;
+        }
+
+        .photo-item {
+            min-width: 280px;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: relative;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.02);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 20px 15px 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-caption {
+            opacity: 1;
+        }
+
+        .photo-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .photo-desc {
+            font-size: 0.9rem;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ecf0f1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background-color: #3498db;
+            transform: scale(1.2);
+        }
+
+        /* Sección de cumpleaños mejorada */
+        .birthday-section {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 25px rgba(41, 128, 185, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .birthday-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .birthday-message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .birthday-quote {
+            font-style: italic;
+            margin-bottom: 25px;
+            position: relative;
+            padding: 0 30px;
+        }
+
+        .birthday-quote::before,
+        .birthday-quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
+            position: absolute;
+        }
+
+        .birthday-quote::before {
+            left: 0;
+            top: -10px;
+        }
+
+        .birthday-quote::after {
+            right: 0;
+            bottom: -20px;
+        }
+
+        .interaction-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .interaction-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .interaction-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Sección de comentarios */
+        .comment-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: none;
+            min-height: 100px;
+            transition: border 0.3s ease;
+        }
+
+        .comment-input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .comment-submit {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            align-self: flex-end;
+        }
+
+        .comment-submit:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .initial-title {
+                font-size: 2rem;
+            }
+            
+            .music-item {
+                min-width: 160px;
+            }
+            
+            .photo-item {
+                min-width: 220px;
+                height: 280px;
+            }
+            
+            .birthday-title {
+                font-size: 1.8rem;
+            }
+            
+            .birthday-message {
+                font-size: 1rem;
+            }
+            
+            .interaction-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .interaction-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Fuente Montserrat */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ... (otros estilos anteriores se mantienen igual) ... */
+
+        /* Modal de imagen */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        @media (min-width: 992px) {
+            .modal-container {
+                flex-direction: row;
+                height: 80vh;
+            }
+        }
+
+        .modal-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .modal-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-date {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-top: auto;
+            text-align: right;
+            font-style: italic;
+        }
+
+        /* Responsive para modal */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-description {
+                font-size: 1rem;
+            }
+            
+            .modal-icon {
+                font-size: 2.5rem;
+            }
+        }
+        /* Controles de música */
+.music-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.control-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.control-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+}
+
+.progress-container {
+    flex-grow: 1;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--progress, 0%);
+    background-color: #3498db;
+    transition: width 0.1s linear;
+}
+
+.progress-time {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    min-width: 40px;
+    text-align: center;
+}
+.music-carousel {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden; /* Cambiamos de auto a hidden */
+    padding: 15px 5px;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    user-select: none;
+    will-change: transform;
+}
+
+.music-carousel.grabbing {
+    cursor: grabbing;
+}
+
+.music-carousel:hover {
+    overflow-x: auto; /* Solo muestra el scroll al hacer hover */
+}
+
+/* Opcional: puedes personalizar aún más el scroll */
+.music-carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.music-carousel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.music-carousel::-webkit-scrollbar-thumb {
+    background: #bdc3c7;
+    border-radius: 10px;
+}
+    </style>
+</head>
+<body>
+    <!-- Página inicial -->
+    <div class="initial-page" id="initialPage">
+        <h1 class="initial-title">Iniciar este recorrido</h1>
+        <button class="click-button" onclick="navigateToMainPage()">Click</button>
+    </div>
+
+    <!-- Página principal -->
+    <div class="main-page" id="mainPage">
+        <!-- Lluvia de corazones izquierda -->
+        <div class="heart-rain left" id="leftHeartRain"></div>
+        
+        <!-- Lluvia de corazones derecha -->
+        <div class="heart-rain right" id="rightHeartRain"></div>
+
+        <!-- Sección de música -->
+        <div class="music-section">
+            <h2 class="section-title"><i class="fas fa-music"></i> Nuestra Música Especial</h2>
+            <div class="music-carousel">
+                <div class="music-item" onclick="togglePlay(0)">
+                    <div class="album-cover">
+                        <img src="./img/hq720.jpg" alt="Album Cover">
+                        <div class="play-overlay">
+                            <i class="fas fa-play play-icon" id="playIcon0"></i>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Cuando Nadie Me Ve</div>
+                        <div class="song-artist">Morat</div>
+                        <div class="song-duration">03:56</div>
+                    </div>
+                </div>
+                <div class="music-item" onclick="togglePlay(1)">
+                    <div class="album-cover">
+                        <img src="./img/Morat.jpg" alt="Album Cover">
+                        <div class="play-overlay">
+                            <i class="fas fa-play play-icon" id="playIcon1"></i>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">No Hay Mas Que Hablar</div>
+                        <div class="song-artist">Morat</div>
+                        <div class="song-duration">03:56</div>
+                    </div>
+                </div>
+                
+                <div class="music-item" onclick="togglePlay(2)">
+                    <div class="album-cover">
+                        <img src="./img/U2NSNAC3LRFXHKZPQDRIQSTWZQ.jpg" alt="Album Cover">
+                        <div class="play-overlay">
+                            <i class="fas fa-play play-icon" id="playIcon2"></i>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Por Toda la Vida</div>
+                        <div class="song-artist">Fonseca</div>
+                        <div class="song-duration">03:56</div>
+                    </div>
+                </div>
+                <div class="music-item" onclick="togglePlay(3)">
+                    <div class="album-cover">
+                        <img src="./img/12.jpeg" alt="Album Cover">
+                        <div class="play-overlay">
+                            <i class="fas fa-play play-icon" id="playIcon3"></i>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">MAS QUE SUERTE</div>
+                        <div class="song-artist">BEATRIZ LUENGO</div>
+                        <div class="song-duration">03:56</div>
+                    </div>
+                </div>
+                <div class="music-item" onclick="togglePlay(4)">
+                    <div class="album-cover">
+                        <img src="./img/MHN-WGL-PNTN-032.jpg" alt="Album Cover">
+                        <div class="play-overlay">
+                            <i class="fas fa-play play-icon" id="playIcon4"></i>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Photograph</div>
+                        <div class="song-artist">Ed Sheeran</div>
+                        <div class="song-duration">03:56</div>
+                    </div>
+                </div>
+                <div class="music-item" onclick="togglePlay(5)">
+                  <div class="album-cover">
+                      <img src="./img/jesse.jpeg" alt="Album Cover">
+                      <div class="play-overlay">
+                          <i class="fas fa-play play-icon" id="playIcon5"></i>
+                      </div>
+                  </div>
+                  <div class="song-info">
+                      <div class="song-title">Tanto</div>
+                      <div class="song-artist">Jesse y Joy</div>
+                      <div class="song-duration">03:48</div>
+                  </div>
+              </div>
+              <div class="music-item" onclick="togglePlay(6)">
+                <div class="album-cover">
+                    <img src="./img/hq720 (1).jpg" alt="Album Cover">
+                    <div class="play-overlay">
+                        <i class="fas fa-play play-icon" id="playIcon6"></i>
+                    </div>
+                </div>
+                <div class="song-info">
+                    <div class="song-title">Eclipse Solar</div>
+                    <div class="song-artist">Morat</div>
+                    <div class="song-duration">04:35</div>
+                </div>
+            </div>
+            </div>
+            <div class="music-controls">
+              <button class="control-btn" onclick="skipBackward()">
+                  <i class="fas fa-step-backward"></i>
+              </button>
+              <button class="control-btn" onclick="skipForward()">
+                  <i class="fas fa-step-forward"></i>
+              </button>
+              <div class="progress-container">
+                  <div class="progress-bar" id="progressBar"></div>
+                  <div class="progress-time" id="currentTime">0:00</div>
+                  <div class="progress-time" id="duration">0:00</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Sección de fotos - Carrusel mejorado -->
+        <div class="photo-section">
+            <h2 class="section-title"><i class="fas fa-camera-retro"></i> Nuestros Momentos</h2>
+            <div class="carousel-container">
+                <div class="photo-carousel" id="photoCarousel">
+                    <div class="photo-item">
+                        <img src="../img/1.jpeg" alt="Foto 1">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/2.jpeg" alt="Foto 2">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/3.jpeg" alt="Foto 3">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/4.jpeg" alt="Foto 4">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/5.jpeg" alt="Foto 5">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/6.jpeg" alt="Foto 6">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/7.jpeg" alt="Foto 7">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/8.jpeg" alt="Foto 8">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="../img/9.jpeg" alt="Foto 9">
+                        <div class="photo-caption">
+                            <div class="photo-title">Lorem Ipsum</div>
+                            <div class="photo-desc">description</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav" id="carouselNav">
+                <!-- Los puntos de navegación se generan automáticamente con JS -->
+            </div>
+        </div>
+
+        <!-- Sección de cumpleaños mejorada -->
+        <div class="birthday-section">
+            <div class="birthday-content">
+                <h2 class="birthday-title">¡Feliz Cumpleaños!</h2>
+                <div class="birthday-message">
+                    En este día tan especial, quiero recordarte lo increíble que eres. Eres la luz de mis días y la razón de mi sonrisa. Que este nuevo año de vida esté lleno de amor, alegría y todos tus sueños hechos realidad.
+                </div>
+                <div class="birthday-quote">
+                    El verdadero amor no es otra cosa que el deseo inevitable de ayudar al otro para que sea quien es.
+                </div>
+                <div class="interaction-buttons">
+                    <button class="interaction-btn" onclick="showLoveMessage()">
+                        <i class="fas fa-heart"></i> Mensaje Especial
+                    </button>
+                    <button class="interaction-btn" onclick="showMemory()">
+                        <i class="fas fa-images"></i> Recuerdo Favorito
+                    </button>
+                    <button class="interaction-btn" onclick="showSurprise()">
+                        <i class="fas fa-gift"></i> Sorpresa
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de comentarios -->
+        <div class="comment-section">
+            <h2 class="section-title"><i class="fas fa-comment"></i> Deja tu mensaje</h2>
+            <form class="comment-form" id="commentForm">
+                <textarea class="comment-input" placeholder="Escribe tu mensaje especial aquí..." required></textarea>
+                <button type="submit" class="comment-submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Audio oculto para la música -->
+    <audio id="audioPlayer" src=""></audio>
+ <!-- ... (código anterior se mantiene igual) ... -->
+
+    <!-- Modal para imágenes -->
+    <div class="image-modal" id="imageModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-container" id="modalContainer">
+          <div class="modal-image-container">
+              <img src="" alt="Imagen ampliada" class="modal-image" id="modalImage">
+          </div>
+          <div class="modal-content">
+              <div class="modal-icon" id="modalIcon">
+                  <i class="fas fa-heart"></i>
+              </div>
+              <h3 class="modal-title" id="modalTitle">Título de la imagen</h3>
+              <p class="modal-description" id="modalDescription">Descripción detallada de la imagen y el momento especial que representa.</p>
+              <div class="modal-date" id="modalDate">15 de Marzo, 2023</div>
+          </div>
+      </div>
+  </div>
+  <script>
+    // Navegación entre páginas
+    function navigateToMainPage() {
+        document.getElementById('initialPage').style.display = 'none';
+        document.getElementById('mainPage').style.display = 'block';
+        startHeartRain();
+        initPhotoCarousel();
+    }
+    
+    // Lista de canciones
+    const songs = [
+        { 
+            title: "Cuando Nadie Ve", 
+            artist: "Morat",
+            url: "./music/Morat - Cuando Nadie Ve.mp3",
+            cover: "./img/hq720.jpg",
+            duration: "03:56"
+        },
+        { 
+            title: "No Hay Más Que Hablar", 
+            artist: "Morat",
+            url: "./music/Morat - No Hay Más Que Hablar.mp3",
+            cover: "./img/Morat.jpg",
+            duration: "03:56"
+        },
+        { 
+            title: "Por Toda la Vida", 
+            artist: "Fonseca",
+            url: "./music/Fonseca - Por Toda la Vida (Letra).mp3",
+            cover: "./img/U2NSNAC3LRFXHKZPQDRIQSTWZQ.jpg",
+            duration: "03:56"
+        },
+        { 
+            title: "MAS QUE SUERTE", 
+            artist: "BEATRIZ LUENGO",
+            url: "./music/Beatriz Luengo - Más Que Suerte (Official Video) ft. Jesús Navarro.mp3",
+            cover: "./img/12.jpeg",
+            duration: "03:56"
+        },
+        { 
+            title: "Perfect", 
+            artist: "Ed Sheeran",
+            url: "./music/Perfect - Ed Sheeran (Lyrics).mp3",
+            cover: "./img/MHN-WGL-PNTN-032.jpg",
+            duration: "03:56"
+        },
+        { 
+            title: "Tanto", 
+            artist: "Jesse y Joy",
+            url: "./music/jesse.mp3",
+            cover: "./img/jesse.jpeg",
+            duration: "03:48"
+        }
+        ,
+        { 
+            title: "Eclipse Solar", 
+            artist: "Morat",
+            url: "./music/clipse Solar (LETRA) Lyrics.mp3",
+            cover: "./img/hq720 (1).jpg",
+            duration: "04:35"
+        }
+    ];
+    
+    const audioPlayer = document.getElementById('audioPlayer');
+    let currentSongIndex = 0;
+    let isPlaying = false;
+    let isDraggingProgress = false;
+    let progressRAF; // Para la animación frame a frame
+
+    // Función para actualizar la barra de progreso de manera fluida
+    function updateProgressBar() {
+        if (!isDraggingProgress && !audioPlayer.paused) {
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100 || 0;
+            document.querySelector('.progress-bar').style.setProperty('--progress', `${progress}%`);
+            document.getElementById('currentTime').textContent = formatTime(audioPlayer.currentTime);
+        }
+        progressRAF = requestAnimationFrame(updateProgressBar);
+    }
+
+    // Iniciar barra de progreso (llamar esto cuando comience la reproducción)
+    function startProgressBar() {
+        cancelAnimationFrame(progressRAF); // Cancelar cualquier animación previa
+        progressRAF = requestAnimationFrame(updateProgressBar);
+    }
+
+    // Detener barra de progreso (llamar esto al pausar)
+    function stopProgressBar() {
+        cancelAnimationFrame(progressRAF);
+    }
+
+    // Eventos para la interacción con la barra de progreso
+    const progressBar = document.querySelector('.progress-bar');
+
+    progressBar.addEventListener('click', (e) => {
+        if (audioPlayer.duration) {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pos * audioPlayer.duration;
+            
+            // Actualizar inmediatamente
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            document.querySelector('.progress-bar').style.setProperty('--progress', `${progress}%`);
+            document.getElementById('currentTime').textContent = formatTime(audioPlayer.currentTime);
+        }
+    });
+
+    progressBar.addEventListener('mousedown', () => {
+        isDraggingProgress = true;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDraggingProgress && audioPlayer.duration) {
+            const rect = progressBar.getBoundingClientRect();
+            let pos = (e.clientX - rect.left) / rect.width;
+            pos = Math.max(0, Math.min(1, pos)); // Asegurar que esté entre 0 y 1
+            
+            // Actualizar visualización
+            document.querySelector('.progress-bar').style.setProperty('--progress', `${pos * 100}%`);
+            document.getElementById('currentTime').textContent = formatTime(pos * audioPlayer.duration);
+        }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+        if (isDraggingProgress && audioPlayer.duration) {
+            isDraggingProgress = false;
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pos * audioPlayer.duration;
+        }
+    });
+    
+    // Reproducir/pausar canción
+    function togglePlay(index) {
+        if (currentSongIndex === index && isPlaying) {
+            // Pausar la canción actual
+            audioPlayer.pause();
+            isPlaying = false;
+            document.getElementById(`playIcon${index}`).classList.remove('fa-pause');
+            document.getElementById(`playIcon${index}`).classList.add('fa-play');
+            stopProgressBar();
+        } else {
+            // Cambiar de canción o reanudar
+            currentSongIndex = index;
+            audioPlayer.src = songs[index].url;
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                
+                // Actualizar todos los íconos
+                document.querySelectorAll('.play-icon').forEach(icon => {
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                });
+                
+                // Cambiar el ícono actual a pause
+                document.getElementById(`playIcon${index}`).classList.remove('fa-play');
+                document.getElementById(`playIcon${index}`).classList.add('fa-pause');
+                
+                // Iniciar barra de progreso
+                updateSongDuration();
+                startProgressBar();
+            }).catch(error => {
+                console.error("Error al reproducir:", error);
+                alert("Hubo un error al reproducir la canción. Asegúrate de que el archivo existe.");
+            });
+        }
+    }
+    
+    // Función para adelantar canción
+    function skipForward() {
+        if (currentSongIndex < songs.length - 1) {
+            togglePlay(currentSongIndex + 1);
+        } else {
+            // Si es la última canción, volver al inicio
+            togglePlay(0);
+        }
+    }
+    
+    // Función para retroceder canción
+    function skipBackward() {
+        if (audioPlayer.currentTime > 3) {
+            // Si la canción lleva más de 3 segundos, reiniciarla
+            audioPlayer.currentTime = 0;
+        } else if (currentSongIndex > 0) {
+            // Si no, ir a la canción anterior
+            togglePlay(currentSongIndex - 1);
+        } else {
+            // Si es la primera canción, ir a la última
+            togglePlay(songs.length - 1);
+        }
+    }
+    
+    // Función para actualizar la duración de la canción
+    function updateSongDuration() {
+        const duration = audioPlayer.duration || 0;
+        document.getElementById('duration').textContent = formatTime(duration);
+    }
+    
+    // Función para formatear el tiempo (mm:ss)
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    // Evento para cuando cambia la duración de la canción
+    audioPlayer.addEventListener('loadedmetadata', updateSongDuration);
+    
+    // Evento para cuando termina la canción
+    audioPlayer.addEventListener('ended', function() {
+        isPlaying = false;
+        document.getElementById(`playIcon${currentSongIndex}`).classList.remove('fa-pause');
+        document.getElementById(`playIcon${currentSongIndex}`).classList.add('fa-play');
+        stopProgressBar();
+        
+        // Reproducir siguiente canción automáticamente
+        skipForward();
+    });
+    
+    // Lluvia de corazones mejorada
+    function createHeart(container) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'px';
+        heart.style.setProperty('--random-x', Math.random() * 2 - 1);
+        heart.style.setProperty('--random-rotate', Math.random());
+        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        container.appendChild(heart);
+        
+        // Eliminar después de la animación
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+    
+    function startHeartRain() {
+        const leftContainer = document.getElementById('leftHeartRain');
+        const rightContainer = document.getElementById('rightHeartRain');
+        
+        // Limpiar corazones existentes
+        leftContainer.innerHTML = '';
+        rightContainer.innerHTML = '';
+        
+        // Crear corazones continuamente
+        setInterval(() => {
+            createHeart(leftContainer);
+            createHeart(rightContainer);
+        }, 300);
+    }
+    
+    // Carrusel de fotos con arrastre fluido
+    function initPhotoCarousel() {
+        const carousel = document.getElementById('photoCarousel');
+        const nav = document.getElementById('carouselNav');
+        const items = document.querySelectorAll('.photo-item');
+        const itemWidth = items[0].offsetWidth + 20; // Ancho del item + gap
+        
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let currentIndex = 0;
+        let animationId;
+        let velocity = 0;
+        let lastTime = 0;
+        
+        // Crear puntos de navegación
+        items.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('nav-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToIndex(index));
+            nav.appendChild(dot);
+        });
+        
+        // Eventos táctiles
+        carousel.addEventListener('touchstart', touchStart);
+        carousel.addEventListener('touchend', touchEnd);
+        carousel.addEventListener('touchmove', touchMove);
+        
+        // Eventos de ratón
+        carousel.addEventListener('mousedown', dragStart);
+        carousel.addEventListener('mouseup', dragEnd);
+        carousel.addEventListener('mouseleave', dragEnd);
+        carousel.addEventListener('mousemove', drag);
+        
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                startPos = e.touches[0].clientX;
+            } else {
+                startPos = e.clientX;
+                e.preventDefault();
+            }
+            
+            isDragging = true;
+            carousel.classList.add('grabbing');
+            cancelAnimationFrame(animationId);
+            lastTime = performance.now();
+            velocity = 0;
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            
+            const currentPosition = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const diff = currentPosition - startPos;
+            
+            // Calcular velocidad para efecto de arrastre fluido
+            const time = performance.now();
+            const deltaTime = time - lastTime;
+            if (deltaTime > 0) {
+                velocity = (diff - (currentTranslate - prevTranslate)) / deltaTime;
+            }
+            lastTime = time;
+            
+            carousel.style.transform = `translateX(${currentTranslate + diff}px)`;
+        }
+        
+        function dragEnd(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            carousel.classList.remove('grabbing');
+            
+            const currentPosition = e.type === 'touchend' ? 
+                (e.changedTouches ? e.changedTouches[0].clientX : 0) : e.clientX;
+            const diff = currentPosition - startPos;
+            
+            // Aplicar inercia basada en la velocidad
+            const inertia = velocity * 100;
+            const threshold = itemWidth / 4;
+            
+            if (Math.abs(diff + inertia) > threshold) {
+                if (diff + inertia > 0 && currentIndex > 0) {
+                    currentIndex--;
+                } else if (diff + inertia < 0 && currentIndex < items.length - 1) {
+                    currentIndex++;
+                }
+            }
+            
+            goToIndex(currentIndex);
+        }
+        
+        function touchStart(e) {
+            startPos = e.touches[0].clientX;
+            isDragging = true;
+            carousel.classList.add('grabbing');
+            cancelAnimationFrame(animationId);
+            lastTime = performance.now();
+            velocity = 0;
+        }
+        
+        function touchMove(e) {
+            if (!isDragging) return;
+            const currentPosition = e.touches[0].clientX;
+            const diff = currentPosition - startPos;
+            
+            const time = performance.now();
+            const deltaTime = time - lastTime;
+            if (deltaTime > 0) {
+                velocity = (diff - (currentTranslate - prevTranslate)) / deltaTime;
+            }
+            lastTime = time;
+            
+            carousel.style.transform = `translateX(${currentTranslate + diff}px)`;
+        }
+        
+        function touchEnd(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            carousel.classList.remove('grabbing');
+            
+            const currentPosition = e.changedTouches[0].clientX;
+            const diff = currentPosition - startPos;
+            
+            const inertia = velocity * 100;
+            const threshold = itemWidth / 4;
+            
+            if (Math.abs(diff + inertia) > threshold) {
+                if (diff + inertia > 0 && currentIndex > 0) {
+                    currentIndex--;
+                } else if (diff + inertia < 0 && currentIndex < items.length - 1) {
+                    currentIndex++;
+                }
+            }
+            
+            goToIndex(currentIndex);
+        }
+        
+        function goToIndex(index) {
+            currentIndex = index;
+            prevTranslate = currentTranslate;
+            currentTranslate = -currentIndex * itemWidth;
+            
+            // Animación suave
+            const startTime = performance.now();
+            const duration = 300;
+            
+            function animate(time) {
+                const elapsed = time - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = easeOutCubic(progress);
+                
+                carousel.style.transform = `translateX(${prevTranslate + (currentTranslate - prevTranslate) * easeProgress}px)`;
+                
+                if (progress < 1) {
+                    animationId = requestAnimationFrame(animate);
+                }
+            }
+            
+            animationId = requestAnimationFrame(animate);
+            
+            // Actualizar puntos de navegación
+            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        function easeOutCubic(t) {
+            return (--t) * t * t + 1;
+        }
+    }
+    
+    // Funciones de interacción
+    function showLoveMessage() {
+        alert("Eres la persona más importante en mi vida. Cada día a tu lado es un regalo que atesoro con todo mi corazón. Te amo más de lo que las palabras pueden expresar.");
+    }
+    
+    function showMemory() {
+        alert("Uno de mis recuerdos favoritos es cuando fuimos a la playa al atardecer. Tu sonrisa bajo esa luz dorada es una imagen que guardaré para siempre en mi corazón.");
+    }
+    
+    function showSurprise() {
+        alert("¡Sorpresa! Tengo planeado algo muy especial para celebrar este día. Prepárate para una aventura que nunca olvidaremos.");
+    }
+    
+    // Manejar el formulario de comentarios
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const commentInput = this.querySelector('.comment-input');
+        if (commentInput.value.trim() !== '') {
+            alert('¡Gracias por tu mensaje especial! Lo guardaré para siempre en mi corazón.');
+            commentInput.value = '';
+        }
+    });
+
+    // Galería de imágenes interactiva
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalDate = document.getElementById('modalDate');
+    const modalClose = document.getElementById('modalClose');
+    const modalContainer = document.getElementById('modalContainer');
+
+    // Iconos de amor para cada imagen
+    const loveIcons = [
+        'fas fa-heart',
+        'fas fa-heartbeat',
+        'fas fa-kiss-wink-heart',
+        'fas fa-heart-circle',
+        'fas fa-heart-broken',
+        'fas fa-heart-circle-plus',
+        'fas fa-heart-crack',
+        'fas fa-hearts',
+        'fas fa-heart-pulse'
+    ];
+
+    // Descripciones para cada imagen
+    const imageDescriptions = [
+        "Este día fue mágico, recuerdo cada detalle como si fuera ayer. Tu sonrisa iluminaba todo a tu alrededor y supe en ese momento que eras la persona con la que quería compartir mi vida.",
+        "En este momento capturamos la esencia de nuestro amor. La manera en que nos miramos dice más que mil palabras. Eres mi todo y cada día a tu lado es un regalo.",
+        "Esta imagen representa la aventura que es estar contigo. Cada día es una nueva oportunidad para crear recuerdos increíbles juntos. No cambiaría ni un solo momento.",
+        "Aquí estábamos disfrutando de la simpleza de estar juntos. No necesitamos grandes cosas para ser felices, solo necesitamos estar el uno para el otro.",
+        "Este viaje marcó un antes y después en nuestra relación. Descubrimos nuevos lugares pero lo más importante, descubrimos nuevas razones para amarnos cada día más.",
+        "En esta foto puedes ver la felicidad en nuestros ojos. Esa felicidad que solo existe cuando estamos juntos. Eres mi persona favorita en el mundo.",
+        "En esta foto se refleja esa paz que solo sentimos cuando estamos uno al lado del otro. Nuestras sonrisas lo dicen todo: aquí no hay preocupaciones, solo nosotros y el cariño que nos une. Estar contigo hace que cada instante tenga sentido.",
+        "Ese día, entre montañas y cielo azul, me sentí completamente en paz. A tu lado, incluso una simple caminata se convierte en una aventura inolvidable. Tu presencia hace que cualquier paisaje se vuelva más bonito, y tu sonrisa le da sentido a todo lo que me rodea. Gracias por ser mi refugio incluso en medio de la multitud.",
+        "“Este momento fue más que una simple parada en el camino. Fue un instante en el que nos sentamos a escuchar música cajamarquina, dejando que cada nota nos conectara con el lugar y entre nosotros. Mientras sonaba la melodía, yo no podía dejar de contemplarte, pensando en lo hermosa que te veías, tan tú, tan mágica. Ese día entendí que, sin importar el destino, los viajes más bonitos siempre serán contigo.”"
+    ];
+
+    // Fechas para cada imagen
+    const imageDates = [
+        "15 de Marzo, 2023",
+        "22 de Abril, 2023",
+        "3 de Mayo, 2023",
+        "18 de Junio, 2023",
+        "7 de Julio, 2023",
+        "25 de Agosto, 2023",
+        "12 de Septiembre, 2023",
+        "30 de Octubre, 2023",
+        "14 de Noviembre, 2023"
+    ];
+
+    // Configurar eventos para las imágenes
+    document.querySelectorAll('.photo-item').forEach((item, index) => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.querySelector('img').src;
+            openImageModal(imgSrc, index);
+        });
+    });
+
+    // Abrir modal de imagen
+    function openImageModal(src, index) {
+        modalImage.src = src;
+        modalTitle.textContent = `Momento Especial #${index + 1}`;
+        modalDescription.textContent = imageDescriptions[index];
+        modalDate.textContent = imageDates[index];
+        
+        // Cambiar icono según la imagen
+        const iconClass = loveIcons[index % loveIcons.length];
+        modalIcon.innerHTML = `<i class="${iconClass}"></i>`;
+        
+        // Mostrar modal
+        imageModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Cerrar modal
+    modalClose.addEventListener('click', closeImageModal);
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            closeImageModal();
+        }
+    });
+
+    function closeImageModal() {
+        imageModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+            closeImageModal();
+        }
+    });
+</script>
+</body>
+</html>
