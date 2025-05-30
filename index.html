@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorpresa de Amor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
+       @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Caveat:wght@400;600&display=swap');
         * {
             margin: 0;
             padding: 0;
@@ -340,8 +343,6 @@
             background-color: #3498db;
             transform: scale(1.2);
         }
-
-        /* Sección de cumpleaños mejorada */
         .birthday-section {
             background: linear-gradient(135deg, #3498db, #2980b9);
             border-radius: 15px;
@@ -365,6 +366,7 @@
             animation: rotate 20s linear infinite;
             z-index: 1;
         }
+       
 
         @keyframes rotate {
             0% { transform: rotate(0deg); }
@@ -444,54 +446,8 @@
             transform: translateY(-3px);
         }
 
-        /* Sección de comentarios */
-        .comment-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eaeaea;
-        }
+       
 
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .comment-input {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
-            resize: none;
-            min-height: 100px;
-            transition: border 0.3s ease;
-        }
-
-        .comment-input:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        .comment-submit {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            align-self: flex-end;
-        }
-
-        .comment-submit:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -546,7 +502,92 @@
 
         /* ... (otros estilos anteriores se mantienen igual) ... */
 
-        /* Modal de imagen */
+        /* Sección de cumpleaños mejorada */
+        
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .birthday-content {
+          font-family: 'Courgette', cursive; 
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-title {            font-size: 2.5rem;
+          font-family: 'Courgette', cursive; 
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .birthday-message {
+          font-family: 'Courgette', cursive; 
+          font-family: 'Courgette', cursive; 
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .birthday-quote {
+          font-family: 'Courgette', cursive; 
+            font-style: italic;
+            margin-bottom: 25px;
+            position: relative;
+            padding: 0 30px;
+        }
+
+        .birthday-quote::before,
+        .birthday-quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
+            position: absolute;
+        }
+
+        .birthday-quote::before {
+            left: 0;
+            top: -10px;
+        }
+
+        .birthday-quote::after {
+            right: 0;
+            bottom: -20px;
+        }
+
+        .interaction-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .interaction-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .interaction-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Modal de imagen - VERSIÓN MEJORADA PARA MÓVILES */
         .image-modal {
             position: fixed;
             top: 0;
@@ -561,6 +602,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            padding: 10px;
         }
 
         .image-modal.active {
@@ -569,59 +611,114 @@
         }
 
         .modal-container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             background-color: white;
             border-radius: 15px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            max-height: 90vh;
+            max-height: 95vh;
+            position: relative;
         }
 
+        /* Para escritorio */
         @media (min-width: 992px) {
             .modal-container {
                 flex-direction: row;
                 height: 80vh;
+                max-height: 80vh;
+            }
+            
+            .modal-image-container {
+                flex: 1.2;
+            }
+            
+            .modal-content {
+                flex: 1;
+            }
+        }
+
+        /* Para tablets */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .modal-container {
+                height: 85vh;
+                max-height: 85vh;
+            }
+            
+            .modal-image-container {
+                flex: 0 0 50%;
+                max-height: 50%;
+            }
+            
+            .modal-content {
+                flex: 1;
+                min-height: 50%;
+            }
+        }
+
+        /* Para móviles */
+        @media (max-width: 767px) {
+            .image-modal {
+                padding: 5px;
+            }
+            
+            .modal-container {
+                height: 95vh;
+                max-height: 95vh;
+            }
+            
+            .modal-image-container {
+                flex: 0 0 40%;
+                max-height: 40%;
+                min-height: 35%;
+            }
+            
+            .modal-content {
+                flex: 1;
+                min-height: 55%;
+                overflow-y: auto;
             }
         }
 
         .modal-image-container {
-            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             background-color: #f5f7fa;
+            position: relative;
         }
 
         .modal-image {
             max-width: 100%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .modal-content {
-            flex: 1;
-            padding: 30px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            background: white;
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             justify-content: center;
@@ -631,61 +728,42 @@
         }
 
         .modal-close:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.9);
             transform: rotate(90deg);
         }
 
         .modal-title {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
+          color: #e74c3c;
+            font-size: 1.5rem;
+            font-family: 'Courgette', cursive; /* Fuente romántica */
+            margin-bottom: 10px;
             font-weight: 600;
         }
 
         .modal-description {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-            margin-bottom: 25px;
-            line-height: 1.7;
+          font-family: 'Courgette', cursive; /* Fuente romántica */
+          font-size: 1.3rem;       /* Más grande (antes era 1.1rem) */
+          font-weight: bold; 
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
         }
 
         .modal-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #e74c3c;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .modal-date {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #95a5a6;
-            margin-top: auto;
             text-align: right;
             font-style: italic;
-        }
-
-        /* Responsive para modal */
-        @media (max-width: 768px) {
-            .modal-container {
-                width: 95%;
-                max-height: 85vh;
-            }
-            
-            .modal-content {
-                padding: 20px;
-            }
-            
-            .modal-title {
-                font-size: 1.5rem;
-            }
-            
-            .modal-description {
-                font-size: 1rem;
-            }
-            
-            .modal-icon {
-                font-size: 2.5rem;
-            }
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #ecf0f1;
         }
         /* Controles de música */
 .music-controls {
@@ -784,6 +862,487 @@
     background: #bdc3c7;
     border-radius: 10px;
 }
+
+
+.comment-section {
+    display: none; /* Oculta toda la sección */
+}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Caveat:wght@400;600&display=swap');
+        
+        /* SOLO ESTILOS PARA LA SECCIÓN DE AMOR - NO AFECTA EL RESTO DE LA PÁGINA */
+        .love-messages-section {
+    font-family: 'Caveat', cursive;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    max-width: 800px;
+    margin: 40px auto;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    
+    /* NUEVO: Limitación de altura */
+    max-height: 500px; /* Altura máxima */
+   
+}
+
+/* Efecto de partículas románticas */
+.love-messages-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: subtleParticles 20s linear infinite;
+}
+
+/* Animación de latido de corazón */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Efecto de brillo sutil */
+.love-messages-section::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
+    pointer-events: none;
+}
+
+/* Animaciones */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes subtleParticles {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 50px 50px, 100px 100px; }
+}
+
+/* Contenedor de mensajes con efecto vidrio */
+.message-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 1.5s ease-out, heartbeat 5s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.message-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Texto con efecto de iluminación */
+.love-message {
+    font-size: 2rem;
+    line-height: 1.6;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.love-message::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+}
+        
+        .love-messages-section * {
+            box-sizing: border-box;
+        }
+        
+        .love-container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .love-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #8B4513;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .love-subtitle {
+            font-size: 1.4rem;
+            color: #5D4E75;
+            margin: 0 0 40px 0;
+            line-height: 1.6;
+        }
+        
+        .love-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .love-button {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.3rem;
+            font-family: 'Caveat', cursive;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+            min-width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .love-button:nth-child(2) {
+            background: linear-gradient(45deg, #A8E6CF, #88D8A3);
+            box-shadow: 0 8px 25px rgba(168, 230, 207, 0.4);
+        }
+        
+        .love-button:nth-child(3) {
+            background: linear-gradient(45deg, #FFD93D, #FF8C42);
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+        }
+        
+        .love-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .love-button:hover::before {
+            left: 100%;
+        }
+        
+        .love-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+        }
+        
+        .love-button i {
+            font-size: 1.5rem;
+        }
+        
+        /* Modal Styles - Encapsulados */
+        .love-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .love-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .love-modal-heart {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            transform: rotate(-45deg) scale(0);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .love-modal-overlay.active .love-modal-heart {
+            transform: rotate(-45deg) scale(1);
+        }
+        
+        .love-modal-heart::before,
+        .love-modal-heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 48px;
+            background: #FF6B6B;
+            border-radius: 30px 30px 0 0;
+            transform-origin: 0 100%;
+        }
+        
+        .love-modal-heart::before {
+            left: 30px;
+            transform: rotate(-45deg);
+        }
+        
+        .love-modal-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+        }
+        
+        .love-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #FFF8DC;
+    border-radius: 20px;
+    padding: 20px;  /* Reduce el padding de 40px a 20px */
+    max-width: 450px;  /* Reduce de 500px a 450px */
+    width: 95%;  /* Cambia de 90% a 95% */
+    margin: 0 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: all 0.6s ease 0.4s;
+    background-image: 
+        linear-gradient(90deg, #E8E8E8 1px, transparent 1px),
+        linear-gradient(#E8E8E8 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+    font-family: 'Caveat', cursive;
+}
+        
+        .love-modal-overlay.active .love-modal-content {
+            transform: translate(-60%, -60%) scale(1);
+            opacity: 1;
+        }
+        
+        .love-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #8B4513;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .love-close-btn:hover {
+            transform: scale(1.2);
+            color: #FF6B6B;
+        }
+        
+        .love-modal-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        .love-modal-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            color: #2C3E50;
+            line-height: 1.8;
+            text-align: left;
+            margin: 0 0 20px 0;
+        }
+        
+        /* Decorative elements */
+        .love-heart-decoration {
+            position: absolute;
+            color: #FF6B6B;
+            font-size: 1.2rem;
+            animation: loveFloat 3s ease-in-out infinite;
+        }
+        
+        .love-heart-decoration:nth-child(1) {
+            top: 20px;
+            left: 30px;
+            animation-delay: 0s;
+        }
+        
+        .love-heart-decoration:nth-child(2) {
+            top: 30px;
+            right: 40px;
+            animation-delay: 1s;
+        }
+        
+        .love-heart-decoration:nth-child(3) {
+            bottom: 40px;
+            left: 50px;
+            animation-delay: 2s;
+        }
+        
+        .love-heart-decoration:nth-child(4) {
+            bottom: 30px;
+            right: 30px;
+            animation-delay: 1.5s;
+        }
+        
+        .love-airplane {
+            position: absolute;
+            top: 20px;
+            right: 80px;
+            color: #8B4513;
+            font-size: 1.5rem;
+            transform: rotate(15deg);
+        }
+        
+        .love-envelope {
+            position: absolute;
+            bottom: 20px;
+            right: 80px;
+            color: #8B4513;
+            font-size: 1.5rem;
+        }
+        
+        /* Simple modal style for 2nd and 3rd modals */
+        .love-simple-modal .love-modal-content {
+            background: #FFF;
+            border: 3px solid #FF6B6B;
+            background-image: 
+                linear-gradient(90deg, #FFE4E1 1px, transparent 1px),
+                linear-gradient(#FFE4E1 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+        
+        .love-heart-border {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed #FF6B6B;
+            border-radius: 15px;
+            pointer-events: none;
+        }
+        
+        .love-heart-border::before {
+            content: '♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #FF6B6B;
+            font-size: 1.2rem;
+            background: #FFF;
+            padding: 0 10px;
+        }
+        
+        .love-heart-border::after {
+            content: '♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #FF6B6B;
+            font-size: 1.2rem;
+            background: #FFF;
+            padding: 0 10px;
+        }
+        
+        /* Floating hearts dentro de la sección */
+        .love-floating-heart {
+            position: absolute;
+            color: #FF6B6B;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 100;
+            animation: loveFloatUp 4s linear forwards;
+        }
+        
+        @keyframes loveFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes loveFloatUp {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .love-title {
+                font-size: 2.5rem;
+            }
+            
+            .love-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .love-button {
+                min-width: 250px;
+                font-size: 1.2rem;
+            }
+            
+            .love-modal-content {
+                padding: 30px 20px;
+            }
+            
+            .love-modal-title {
+                font-size: 2rem;
+            }
+            
+            .love-modal-text {
+                font-size: 1.2rem;
+            }
+        }
+       
+
     </style>
 </head>
 <body>
@@ -897,6 +1456,19 @@
                     <div class="song-duration">04:35</div>
                 </div>
             </div>
+            <div class="music-item" onclick="togglePlay(7)">
+              <div class="album-cover">
+                  <img src="./img/APRENDER A.jpg" alt="Album Cover">
+                  <div class="play-overlay">
+                      <i class="fas fa-play play-icon" id="playIcon7"></i>
+                  </div>
+              </div>
+              <div class="song-info">
+                  <div class="song-title">EAprender A Quererte</div>
+                  <div class="song-artist">Morat</div>
+                  <div class="song-duration">04:23</div>
+              </div>
+          </div>
             </div>
             <div class="music-controls">
               <button class="control-btn" onclick="skipBackward()">
@@ -998,20 +1570,10 @@
                 <div class="birthday-quote">
                     El verdadero amor no es otra cosa que el deseo inevitable de ayudar al otro para que sea quien es.
                 </div>
-                <div class="interaction-buttons">
-                    <button class="interaction-btn" onclick="showLoveMessage()">
-                        <i class="fas fa-heart"></i> Mensaje Especial
-                    </button>
-                    <button class="interaction-btn" onclick="showMemory()">
-                        <i class="fas fa-images"></i> Recuerdo Favorito
-                    </button>
-                    <button class="interaction-btn" onclick="showSurprise()">
-                        <i class="fas fa-gift"></i> Sorpresa
-                    </button>
-                </div>
+                
             </div>
-        </div>
-
+        </div><!-- SECCIÓN DE MENSAJES DE AMOR - COMPLETAMENTE ENCAPSULADA -->
+       
         <!-- Sección de comentarios -->
         <div class="comment-section">
             <h2 class="section-title"><i class="fas fa-comment"></i> Deja tu mensaje</h2>
@@ -1020,6 +1582,108 @@
                 <button type="submit" class="comment-submit">Enviar Mensaje</button>
             </form>
         </div>
+        
+  
+      <!-- SECCIÓN DE MENSAJES DE AMOR - COMPLETAMENTE ENCAPSULADA -->
+      <section class="love-messages-section" id="loveSection">
+          <div class="love-container">
+              <h1 class="love-title">Mensajes del Corazón</h1>
+              <p class="love-subtitle">Tres botones, tres formas de decirte cuánto te amo</p>
+              
+              <div class="love-buttons-container">
+                  <button class="love-button" onclick="openLoveModal('loveModal1')">
+                      <i class="fas fa-heart"></i>
+                      Carta de Amor Especial
+                  </button>
+                  
+                  <button class="love-button" onclick="openLoveModal('loveModal2')">
+                      <i class="fas fa-envelope-heart"></i>
+                      Recuerdo Favorito
+                  </button>
+                  
+                  <button class="love-button" onclick="openLoveModal('loveModal3')">
+                      <i class="fas fa-gift-heart"></i>
+                      Promesa de Amor
+                  </button>
+              </div>
+          </div>
+      </section>
+  
+      <!-- Más contenido de tu página aquí -->
+      
+  
+      <!-- Modal 1 - Elaborado -->
+      <div class="love-modal-overlay" id="loveModal1">
+          <div class="love-modal-heart"></div>
+          <div class="love-modal-content">
+              <button class="love-close-btn" onclick="closeLoveModal('loveModal1')">&times;</button>
+              
+              <div class="love-heart-decoration">♥</div>
+              <div class="love-heart-decoration">♥</div>
+              <div class="love-heart-decoration">♥</div>
+              <div class="love-heart-decoration">♥</div>
+              
+              <div class="love-airplane">✈</div>
+              <div class="love-envelope">✉</div>
+              
+              <h2 class="love-modal-title">Mi Amor Eterno</h2>
+              
+              <div class="love-modal-text">
+                  Mi querido amor,<br><br>
+                  
+                  Cada día que pasa me doy cuenta de lo afortunado que soy de tenerte en mi vida. Eres la luz que ilumina mis días más oscuros y la razón por la que sonrío cada mañana.<br><br>
+                  
+                  Tu risa es mi melodía favorita, tus ojos son mi refugio y tu amor es mi mayor tesoro. No hay palabras suficientes para expresar todo lo que sientes por ti.<br><br>
+                  
+                  Prometo amarte hoy, mañana y por toda la eternidad.<br><br>
+                  
+                  Con todo mi amor,<br>
+                  Tu alma gemela ♥
+              </div>
+          </div>
+      </div>
+  
+      <!-- Modal 2 - Simple -->
+      <div class="love-modal-overlay love-simple-modal" id="loveModal2">
+          <div class="love-modal-heart"></div>
+          <div class="love-modal-content">
+              <div class="love-heart-border"></div>
+              <button class="love-close-btn" onclick="closeLoveModal('loveModal2')">&times;</button>
+              
+              <h2 class="love-modal-title">Nuestro Recuerdo</h2>
+              
+              <div class="love-modal-text">
+                  ¿Recuerdas aquella tarde cuando caminamos bajo la lluvia y nos refugiamos en aquella pequeña cafetería?<br><br>
+                  
+                  Fue ahí donde me di cuenta de que no importaba dónde estuviéramos, mientras estuvieras a mi lado, cualquier lugar se convertía en el paraíso.<br><br>
+                  
+                  Ese momento quedó grabado en mi corazón para siempre.<br><br>
+                  
+                  Te amo ♥
+              </div>
+          </div>
+      </div>
+  
+      <!-- Modal 3 - Simple -->
+      <div class="love-modal-overlay love-simple-modal" id="loveModal3">
+          <div class="love-modal-heart"></div>
+          <div class="love-modal-content">
+              <div class="love-heart-border"></div>
+              <button class="love-close-btn" onclick="closeLoveModal('loveModal3')">&times;</button>
+              
+              <h2 class="love-modal-title">Mi Promesa</h2>
+              
+              <div class="love-modal-text">
+                  Te prometo que siempre estaré aquí para ti, en los buenos y malos momentos.<br><br>
+                  
+                  Prometo cuidar tu corazón como el tesoro más preciado que tengo.<br><br>
+                  
+                  Prometo amarte con la misma intensidad del primer día, cada día de nuestras vidas.<br><br>
+                  
+                  Esta es mi promesa de amor eterno ♥
+              </div>
+          </div>
+      </div>
     </div>
 
     <!-- Audio oculto para la música -->
@@ -1043,6 +1707,7 @@
           </div>
       </div>
   </div>
+  
   <script>
     // Navegación entre páginas
     function navigateToMainPage() {
@@ -1103,6 +1768,13 @@
             url: "./music/clipse Solar (LETRA) Lyrics.mp3",
             cover: "https://vicurm.github.io/imagenes/hq720 (1).jpg",
             duration: "04:35"
+        },
+        { 
+            title: "Eclipse Solar", 
+            artist: "Morat",
+            url: "./music/Morat - Aprender A Quererte.mp3",
+            cover: "./img/APRENDER A.jpg",
+            duration: "04:23"
         }
     ];
     
@@ -1293,181 +1965,124 @@
             createHeart(rightContainer);
         }, 300);
     }
-    
-    // Carrusel de fotos con arrastre fluido
     function initPhotoCarousel() {
-        const carousel = document.getElementById('photoCarousel');
-        const nav = document.getElementById('carouselNav');
-        const items = document.querySelectorAll('.photo-item');
-        const itemWidth = items[0].offsetWidth + 20; // Ancho del item + gap
-        
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let currentIndex = 0;
-        let animationId;
-        let velocity = 0;
-        let lastTime = 0;
-        
-        // Crear puntos de navegación
-        items.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('nav-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToIndex(index));
-            nav.appendChild(dot);
-        });
-        
-        // Eventos táctiles
-        carousel.addEventListener('touchstart', touchStart);
-        carousel.addEventListener('touchend', touchEnd);
-        carousel.addEventListener('touchmove', touchMove);
-        
-        // Eventos de ratón
-        carousel.addEventListener('mousedown', dragStart);
-        carousel.addEventListener('mouseup', dragEnd);
-        carousel.addEventListener('mouseleave', dragEnd);
-        carousel.addEventListener('mousemove', drag);
-        
-        function dragStart(e) {
-            if (e.type === 'touchstart') {
-                startPos = e.touches[0].clientX;
-            } else {
-                startPos = e.clientX;
-                e.preventDefault();
-            }
-            
-            isDragging = true;
-            carousel.classList.add('grabbing');
-            cancelAnimationFrame(animationId);
-            lastTime = performance.now();
-            velocity = 0;
-        }
-        
-        function drag(e) {
-            if (!isDragging) return;
-            
-            const currentPosition = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-            const diff = currentPosition - startPos;
-            
-            // Calcular velocidad para efecto de arrastre fluido
-            const time = performance.now();
-            const deltaTime = time - lastTime;
-            if (deltaTime > 0) {
-                velocity = (diff - (currentTranslate - prevTranslate)) / deltaTime;
-            }
-            lastTime = time;
-            
-            carousel.style.transform = `translateX(${currentTranslate + diff}px)`;
-        }
-        
-        function dragEnd(e) {
-            if (!isDragging) return;
-            
-            isDragging = false;
-            carousel.classList.remove('grabbing');
-            
-            const currentPosition = e.type === 'touchend' ? 
-                (e.changedTouches ? e.changedTouches[0].clientX : 0) : e.clientX;
-            const diff = currentPosition - startPos;
-            
-            // Aplicar inercia basada en la velocidad
-            const inertia = velocity * 100;
-            const threshold = itemWidth / 4;
-            
-            if (Math.abs(diff + inertia) > threshold) {
-                if (diff + inertia > 0 && currentIndex > 0) {
-                    currentIndex--;
-                } else if (diff + inertia < 0 && currentIndex < items.length - 1) {
-                    currentIndex++;
-                }
-            }
-            
-            goToIndex(currentIndex);
-        }
-        
-        function touchStart(e) {
-            startPos = e.touches[0].clientX;
-            isDragging = true;
-            carousel.classList.add('grabbing');
-            cancelAnimationFrame(animationId);
-            lastTime = performance.now();
-            velocity = 0;
-        }
-        
-        function touchMove(e) {
-            if (!isDragging) return;
-            const currentPosition = e.touches[0].clientX;
-            const diff = currentPosition - startPos;
-            
-            const time = performance.now();
-            const deltaTime = time - lastTime;
-            if (deltaTime > 0) {
-                velocity = (diff - (currentTranslate - prevTranslate)) / deltaTime;
-            }
-            lastTime = time;
-            
-            carousel.style.transform = `translateX(${currentTranslate + diff}px)`;
-        }
-        
-        function touchEnd(e) {
-            if (!isDragging) return;
-            
-            isDragging = false;
-            carousel.classList.remove('grabbing');
-            
-            const currentPosition = e.changedTouches[0].clientX;
-            const diff = currentPosition - startPos;
-            
-            const inertia = velocity * 100;
-            const threshold = itemWidth / 4;
-            
-            if (Math.abs(diff + inertia) > threshold) {
-                if (diff + inertia > 0 && currentIndex > 0) {
-                    currentIndex--;
-                } else if (diff + inertia < 0 && currentIndex < items.length - 1) {
-                    currentIndex++;
-                }
-            }
-            
-            goToIndex(currentIndex);
-        }
-        
-        function goToIndex(index) {
-            currentIndex = index;
-            prevTranslate = currentTranslate;
-            currentTranslate = -currentIndex * itemWidth;
-            
-            // Animación suave
-            const startTime = performance.now();
-            const duration = 300;
-            
-            function animate(time) {
-                const elapsed = time - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeProgress = easeOutCubic(progress);
-                
-                carousel.style.transform = `translateX(${prevTranslate + (currentTranslate - prevTranslate) * easeProgress}px)`;
-                
-                if (progress < 1) {
-                    animationId = requestAnimationFrame(animate);
-                }
-            }
-            
-            animationId = requestAnimationFrame(animate);
-            
-            // Actualizar puntos de navegación
-            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-        
-        function easeOutCubic(t) {
-            return (--t) * t * t + 1;
-        }
-    }
+    const carousel = document.getElementById('photoCarousel');
+    const nav = document.getElementById('carouselNav');
+    const items = document.querySelectorAll('.photo-item');
+    const itemWidth = items[0].offsetWidth + 20;
     
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let currentIndex = 0;
+    let animationId;
+
+    // Puntos de navegación
+    items.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('nav-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToIndex(index));
+        nav.appendChild(dot);
+    });
+
+    // Eventos comunes
+    const handleStart = (clientX) => {
+        isDragging = true;
+        startPos = clientX;
+        carousel.classList.add('grabbing');
+        cancelAnimationFrame(animationId);
+    };
+
+    const handleMove = (clientX) => {
+        if (!isDragging) return;
+        const diff = clientX - startPos;
+        carousel.style.transform = `translateX(${currentTranslate + diff}px)`;
+    };
+
+    const handleEnd = (clientX) => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.classList.remove('grabbing');
+        
+        const diff = clientX - startPos;
+        const threshold = itemWidth / 3; // Umbral más simple para cambiar de slide
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0 && currentIndex > 0) {
+                currentIndex--;
+            } else if (diff < 0 && currentIndex < items.length - 1) {
+                currentIndex++;
+            }
+        }
+        
+        goToIndex(currentIndex);
+    };
+
+    // Eventos táctiles
+    carousel.addEventListener('touchstart', (e) => handleStart(e.touches[0].clientX));
+    carousel.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX));
+    carousel.addEventListener('touchend', (e) => handleEnd(e.changedTouches[0].clientX));
+
+    // Eventos de ratón
+    carousel.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        handleStart(e.clientX);
+    });
+    carousel.addEventListener('mousemove', (e) => handleMove(e.clientX));
+    carousel.addEventListener('mouseup', (e) => handleEnd(e.clientX));
+    carousel.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            carousel.classList.remove('grabbing');
+            goToIndex(currentIndex);
+        }
+    });
+
+    // Cambiar slide
+    function goToIndex(index) {
+        currentIndex = index;
+        const targetTranslate = -currentIndex * itemWidth;
+        animateTransition(targetTranslate);
+        updateDots();
+    }
+
+    // Animación suave
+    function animateTransition(targetTranslate) {
+        const startTime = performance.now();
+        const duration = 300;
+        const startTranslate = currentTranslate;
+        currentTranslate = targetTranslate;
+
+        function animate(time) {
+            const elapsed = time - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = easeOutCubic(progress);
+            
+            carousel.style.transform = `translateX(${startTranslate + (targetTranslate - startTranslate) * easeProgress}px)`;
+            
+            if (progress < 1) {
+                animationId = requestAnimationFrame(animate);
+            }
+        }
+        
+        animationId = requestAnimationFrame(animate);
+    }
+
+    // Actualizar puntos de navegación
+    function updateDots() {
+        document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    // Función de easing
+    function easeOutCubic(t) {
+        return (--t) * t * t + 1;
+    }
+
+}
+
     // Funciones de interacción
     function showLoveMessage() {
         alert("Eres la persona más importante en mi vida. Cada día a tu lado es un regalo que atesoro con todo mi corazón. Te amo más de lo que las palabras pueden expresar.");
@@ -1583,6 +2198,59 @@
             closeImageModal();
         }
     });
+
+
+
+    function openLoveModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+        }
+        
+        function closeLoveModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+        }
+        
+        // Close modal when clicking outside
+        document.querySelectorAll('.love-modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLoveModal(this.id);
+                }
+            });
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.love-modal-overlay.active').forEach(modal => {
+                    closeLoveModal(modal.id);
+                });
+            }
+        });
+        
+        // Floating hearts solo dentro de la sección
+        function createLoveFloatingHeart() {
+            const loveSection = document.getElementById('loveSection');
+            if (!loveSection) return;
+            
+            const heart = document.createElement('div');
+            heart.innerHTML = '♥';
+            heart.className = 'love-floating-heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '0';
+            
+            loveSection.appendChild(heart);
+            
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 4000);
+        }
+        
+        // Create floating hearts periodically
+        setInterval(createLoveFloatingHeart, 3000);
 </script>
 </body>
 </html>
